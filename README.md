@@ -1,7 +1,7 @@
 # 🚀 SleekByte - Modern Web Development Agency Landing Page  
 
-![image](https://github.com/user-attachments/assets/924c2d36-00ce-4fbe-88d1-036fcd67e686)
-  
+![image](https://github.com/user-attachments/assets/9a602a09-512c-4533-9c84-3418b78bdc8b)
+
 
 ## 🎯 Project Overview  
 SleekByte is a modern, elegant, and fully responsive **web development agency landing page** built using **HTML, Tailwind CSS, and Animate.css**. It is designed to provide a seamless and engaging user experience with smooth animations, interactive elements, and a professional layout.  
