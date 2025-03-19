@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sleekbyte - Web Development Agency</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #6366f1;
+            --dark-bg: #0a0a0a;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-float-delayed {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, var(--dark-bg), #1a1a1a);
+            color: white;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .service-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-purple);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+        
+        .service-icon {
+            transition: all 0.5s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: rotate(360deg) scale(1.2);
+        }
+        
+        .portfolio-image {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .portfolio-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.3));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .portfolio-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .portfolio-image:hover::after {
+            opacity: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #8b5cf6, #6366f1);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .stat-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-purple);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+        }
+        
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        
+        .stat-value {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover .stat-value {
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Pricing Section Styles */
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .pricing-card:hover::after {
+            transform: translateX(100%);
+        }
+        
+        .pricing-card.featured {
+            border: 2px solid var(--primary-purple);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-purple);
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-purple);
+            border-radius: 4px;
+        }
+         /* Add mobile menu styles */
+         .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+         /* FAQ Styles */
+         .faq-item {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq-button {
+            width: 100%;
+            padding: 1.25rem;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .faq-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 200px;
+        }
+
+        .faq-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+          /* Testimonials Styles */
+          .testimonial-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease;
+            position: absolute;
+            width: 100%;
+        }
+
+        .testimonial-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stats Counter Styles */
+        .stats-card {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-10px);
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6366f1;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center animate__animated animate__fadeIn">
+        <div class="text-2xl font-bold">Sleek<span class="gradient-text">byte</span></div>
+        <div class="flex items-center space-x-8">
+            <a href="#why-us" class="hover:text-purple-400 transition-colors duration-300">Why Us</a>
+            <a href="#case-studies" class="hover:text-purple-400 transition-colors duration-300">Case Studies</a>
+            <a href="#testimonials" class="hover:text-purple-400 transition-colors duration-300">Testimonials</a>
+            <a href="#faq" class="hover:text-purple-400 transition-colors duration-300">FAQ</a>
+            <button class="btn-primary">Let's Talk</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="container mx-auto px-6 py-20 animate__animated animate__fadeInUp">
+        <div class="max-w-4xl">
+            <h1 class="text-6xl font-bold mb-6 animate__animated animate__fadeInUp animate__delay-1s">
+                We develop 
+                <span class="gradient-text">amazing</span> 
+                websites for your business.
+            </h1>
+            <p class="text-gray-400 text-xl mb-8 animate__animated animate__fadeInUp animate__delay-2s">
+                Discover our seamless workflow as we transform Figma designs into stunning Webflow websites. Explore the synergy between design and development for a pixel-perfect online experience.
+            </p>
+            <div class="flex items-center space-x-6 animate__animated animate__fadeInUp animate__delay-3s">
+                <button class="btn-primary">View work</button>
+                <div class="flex items-center">
+                    <div class="flex -space-x-2">
+                        <img src="./pic-1.png" class="rounded-full border-2 border-white h-7" alt="Client">
+                        <img src="./pic-2.png" class="rounded-full border-2 border-white h-7" alt="Client">
+                    </div>
+                    <span class="ml-4 text-gray-400">1000+ satisfied clients</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section class="container mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-2 animate__animated animate__fadeInUp">Exceeding Expectations ✨</h2>
+        <p class="text-gray-400 mb-12 animate__animated animate__fadeInUp animate__delay-1s">
+            We're not just another agency; we're your path to exceptional web projects.
+        </p>
+        
+        <div class="grid grid-cols-3 gap-8">
+            <!-- Service Card 1 -->
+            <div class="service-card p-6 rounded-xl">
+                <div class="service-icon w-12 h-12 bg-purple-600 rounded-lg mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Figma to Webflow</h3>
+                <p class="text-gray-400">Expert conversion of your Figma designs into fully functional Webflow websites.</p>
+                <button class="mt-4 p-2 rounded-lg hover:bg-gray-800 transition-colors duration-300">→</button>
+            </div>
+
+            <!-- Service Card 2 -->
+            <div class="service-card p-6 rounded-xl">
+                <div class="service-icon w-12 h-12 bg-purple-600 rounded-lg mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">SEO Excellence</h3>
+                <p class="text-gray-400">Optimize your website for search engines and improve visibility.</p>
+                <button class="mt-4 p-2 rounded-lg hover:bg-gray-800 transition-colors duration-300">→</button>
+            </div>
+
+            <!-- Service Card 3 -->
+            <div class="service-card p-6 rounded-xl">
+                <div class="service-icon w-12 h-12 bg-purple-600 rounded-lg mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Interactive Magic</h3>
+                <p class="text-gray-400">Create engaging user experiences with smooth animations.</p>
+                <button class="mt-4 p-2 rounded-lg hover:bg-gray-800 transition-colors duration-300">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="container mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-2">Our Latest Work ✨</h2>
+        <p class="text-gray-400 mb-12">Discover our freshest creations that showcase the power of design.</p>
+        
+        <div class="grid grid-cols-3 gap-8">
+            <!-- Portfolio Items -->
+            <div class="portfolio-image group">
+                <img src="pro1.png" alt="Project 1" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="btn-primary transform -translate-y-10 group-hover:translate-y-0 transition-transform duration-300">
+                        View Project
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Repeat for other portfolio items -->
+            <div class="portfolio-image group">
+                <img src="pro2.png" alt="Project 2" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="btn-primary transform -translate-y-10 group-hover:translate-y-0 transition-transform duration-300">
+                        View Project
+                    </button>
+                </div>
+            </div>
+
+            <div class="portfolio-image group">
+                <img src="pro1.png" alt="Project 3" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="btn-primary transform -translate-y-10 group-hover:translate-y-0 transition-transform duration-300">
+                        View Project
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!-- Enhanced Statistics Section -->
+                <!-- Projects Card -->
+                <section class="py-20">
+                    <div class="container mx-auto px-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                            <div class="stats-card" data-count="500" data-suffix="+">
+                                <div class="stats-number" id="projects">0</div>
+                                <div class="text-gray-400">Projects Completed</div>
+                            </div>
+                            <div class="stats-card" data-count="98" data-suffix="%">
+                                <div class="stats-number" id="satisfaction">0</div>
+                                <div class="text-gray-400">Client Satisfaction</div>
+                            </div>
+                            <div class="stats-card" data-count="50" data-suffix="+">
+                                <div class="stats-number" id="team">0</div>
+                                <div class="text-gray-400">Team Members</div>
+                            </div>
+                            <div class="stats-card" data-count="10" data-suffix="+">
+                                <div class="stats-number" id="years">0</div>
+                                <div class="text-gray-400">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+   <!-- Enhanced Testimonials Section -->
+   <section id="testimonials" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold mb-12 text-center">Client Testimonials ✨</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card p-6 rounded-xl">
+                <div class="flex flex-col items-center text-center">
+                    <img src="./pic-3.png" alt="Sarah Johnson" class="w-20 h-20 rounded-full testimonial-image mb-4">
+                    <h3 class="text-xl font-bold mb-2">Sarah Johnson</h3>
+                    <p class="text-purple-400 mb-4">CEO, TechStart</p>
+                    <p class="text-gray-300">"sleekbyte Technology transformed our online presence completely. Their team's expertise and dedication to quality is unmatched."</p>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card p-6 rounded-xl">
+                <div class="flex flex-col items-center text-center">
+                    <img src="./pic-4.png" alt="Michael Chen" class="w-20 h-20 rounded-full testimonial-image mb-4">
+                    <h3 class="text-xl font-bold mb-2">Michael Chen</h3>
+                    <p class="text-purple-400 mb-4">CTO, InnovateCorp</p>
+                    <p class="text-gray-300">"The team's technical expertise and attention to detail resulted in a platform that exceeded our expectations."</p>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card p-6 rounded-xl">
+                <div class="flex flex-col items-center text-center">
+                    <img src="./pic-1.png" alt="Emma Davis" class="w-20 h-20 rounded-full testimonial-image mb-4">
+                    <h3 class="text-xl font-bold mb-2">Emma Davis</h3>
+                    <p class="text-purple-400 mb-4">Marketing Director, GrowthLabs</p>
+                    <p class="text-gray-300">"Our website traffic increased by 200% after sleekbyte's SEO optimization. They're truly experts in digital growth."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Pricing Section -->
+    <section class="container mx-auto px-6 py-20">
+        <h2 class="text-4xl font-bold mb-2">Pricing Plans ✨</h2>
+        <p class="text-gray-400 mb-12">Choose the perfect plan for your project</p>
+        
+        <div class="grid grid-cols-3 gap-8">
+            <!-- Basic Plan -->
+            <div class="pricing-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4">Basic</h3>
+                <div class="text-5xl font-bold mb-6">$2,999</div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        5-page responsive website
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Basic SEO setup
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Contact form integration
+                    </li>
+                </ul>
+                <button class="btn-primary w-full">Get Started</button>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="pricing-card featured p-8 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4">Professional</h3>
+                <div class="text-5xl font-bold mb-6">$4,999</div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        10-page responsive website
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Advanced SEO optimization
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Custom animations
+                    </li>
+                </ul>
+                <button class="btn-primary w-full">Get Started</button>
+            </div>
+             <!-- Enterprise Plan -->
+             <div class="pricing-card p-8 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                <div class="text-5xl font-bold mb-6">Custom</div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Unlimited pages
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Custom features
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Priority support
+                    </li>
+                </ul>
+                <button class="btn-primary w-full">Contact Us</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Enhanced FAQ Section -->
+    <section id="faq" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-12 text-center">Frequently Asked Questions ✨</h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex justify-between items-center text-left">
+                        <span class="text-lg font-medium">How long does it take to complete a website?</span>
+                        <svg class="w-6 h-6 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4">
+                        <p class="text-gray-300">Most projects are completed within 4-8 weeks, depending on complexity. Simple websites may be completed sooner, while complex e-commerce or custom web applications may take longer.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex justify-between items-center text-left">
+                        <span class="text-lg font-medium">What technologies do you specialize in?</span>
+                        <svg class="w-6 h-6 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4">
+                        <p class="text-gray-300">We specialize in modern web technologies including React, Next.js, Vue.js, Node.js, and Python. We're also experts in Webflow and WordPress development.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex justify-between items-center text-left">
+                        <span class="text-lg font-medium">Do you provide ongoing support?</span>
+                        <svg class="w-6 h-6 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4">
+                        <p class="text-gray-300">Yes, we offer comprehensive maintenance packages that include regular updates, security monitoring, performance optimization, and technical support.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex justify-between items-center text-left">
+                        <span class="text-lg font-medium">What's your pricing structure?</span>
+                        <svg class="w-6 h-6 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4">
+                        <p class="text-gray-300">Our pricing is project-based and depends on your specific requirements. We offer transparent pricing with no hidden costs and flexible payment options.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex justify-between items-center text-left">
+                        <span class="text-lg font-medium">How do you ensure project success?</span>
+                        <svg class="w-6 h-6 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4">
+                        <p class="text-gray-300">We follow an agile methodology with regular client communications, milestone reviews, and quality assurance testing throughout the development process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<section class="py-20 relative overflow-hidden">
+    <!-- Animated background gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-indigo-900/20 animate-gradient"></div>
+    
+    <!-- Floating shapes in background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl animate-float-delayed"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative">
+        <div class="text-center mb-12 max-w-2xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent animate-gradient">
+                Let's Work Together ✨
+            </h2>
+            <p class="text-gray-400 text-lg">
+                Ready to start your project? Get in touch with us and let's create something amazing together.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <!-- Contact Form -->
+            <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-purple-500/30 transition-all duration-500 shadow-xl">
+                <form class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-300">Full Name</label>
+                        <input 
+                            type="text" 
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-500"
+                            placeholder="John Doe"
+                        >
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-300">Email Address</label>
+                        <input 
+                            type="email" 
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-500"
+                            placeholder="john@example.com"
+                        >
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-300">Project Type</label>
+                        <select class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-white">
+                            <option value="" class="bg-gray-900">Select project type</option>
+                            <option value="website" class="bg-gray-900">Website Development</option>
+                            <option value="ecommerce" class="bg-gray-900">E-commerce Solution</option>
+                            <option value="webapp" class="bg-gray-900">Web Application</option>
+                            <option value="other" class="bg-gray-900">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-gray-300">Message</label>
+                        <textarea 
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-white placeholder-gray-500 h-32 resize-none"
+                            placeholder="Tell us about your project..."
+                        ></textarea>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        class="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold py-4 px-8 rounded-lg hover:from-purple-600 hover:to-indigo-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                    >
+                        Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="space-y-8 md:pl-8">
+                <!-- Office Location -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-500">
+                    <div class="flex items-start space-x-4">
+                        <div class="p-3 bg-purple-500/10 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Visit Our Office</h3>
+                            <p class="text-gray-400">Badlapur</p>
+                            <p class="text-gray-400">Maharastra ,India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Email -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-500">
+                    <div class="flex items-start space-x-4">
+                        <div class="p-3 bg-purple-500/10 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Email Us</h3>
+                            <a href="mailto:hello@sleekbyte.com" class="text-purple-400 hover:text-purple-300 transition-colors">hello@sleekbyte.com</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Phone -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-500">
+                    <div class="flex items-start space-x-4">
+                        <div class="p-3 bg-purple-500/10 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Call Us</h3>
+                            <a href="tel:+15551234567" class="text-purple-400 hover:text-purple-300 transition-colors">+1 (555) 123-4567</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Working Hours -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-purple-500/30 transition-all duration-500">
+                    <div class="flex items-start space-x-4">
+                        <div class="p-3 bg-purple-500/10 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Working Hours</h3>
+                            <p class="text-gray-400">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            <p class="text-gray-400">Weekend: By Appointment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-50 mt-20">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">sleekbyte</h3>
+                    <p class="text-gray-400">Creating exceptional digital experiences through innovative web development.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Services</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Web Development</li>
+                        <li>UI/UX Design</li>
+                        <li>SEO Optimization</li>
+                        <li>Digital Marketing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>About Us</li>
+                        <li>Careers</li>
+                        <li>Blog</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <!-- Social media icons -->
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 sleekbyte. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</body>
+</html>
+    
+</body>
+
+</html>
