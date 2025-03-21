@@ -54,7 +54,7 @@ Follow these steps to **set up the project locally**:
 Open a terminal or command prompt and run:  
 
 ```sh
-git clone https://github.com/yourusername/sleekbyte-landing.git
+git clone https://github.com/RavikishanSingh/sleekbyte-landing.git
 ```
 
 ### 2️⃣ Navigate to the Project Folder  
